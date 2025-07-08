@@ -1,0 +1,11 @@
+.items .card {
+  background-color: transparent;
+}
+.items .main-btn {
+  width: 150px;
+  text-decoration: none;
+}
+.items .main-btn:hover {
+  transform: scale(1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}

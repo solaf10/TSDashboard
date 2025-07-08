@@ -1,0 +1,154 @@
+.page {
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+}
+.page aside {
+  width: 230px;
+  position: relative;
+  transition: 0.5s;
+}
+.page aside .header {
+  margin: 25px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px;
+}
+.page aside .logo {
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+  .colored {
+    color: var(--main-color);
+  }
+}
+.page aside .header .close {
+  display: none;
+  /* margin-bottom: -4px; */
+  font-size: 20px;
+  cursor: pointer;
+}
+.page aside .content {
+  position: fixed;
+  width: 230px;
+  height: 100vh;
+  padding-top: 10px;
+  padding-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  font-weight: 400;
+  background-color: var(--secondary-color);
+  z-index: 100;
+}
+.page aside .content .holder {
+  width: 100%;
+  overflow: hidden;
+}
+.page aside .content ul {
+  margin: 0px auto;
+  padding-left: 10px;
+}
+.page aside .content ul li a {
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  transform: translateX(21px);
+  transition: var(--main-trans);
+  p {
+    margin: 0px;
+  }
+}
+.page aside .content .active,
+.page aside .content ul li a:not(.active):hover {
+  border-radius: 100px;
+  background: var(--main-color);
+}
+.page aside .content ul li a:not(.active):hover {
+  color: var(--main-color);
+  background-color: var(--neutral-color);
+}
+.page aside button {
+  padding: 15px;
+  margin: 22px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.5s;
+  color: var(--neutral-color);
+  background-color: var(--main-color);
+  border-radius: 100px;
+}
+.page aside button:hover {
+  /* background-color: #eee; */
+  transform: scale(0.9);
+}
+.page aside button span {
+  color: var(--primary-font);
+}
+/* main */
+main {
+  flex: 1;
+}
+main .main-content header {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+main .main-content header p {
+  /* margin-bottom: 10px; for responsive*/
+  margin: 0px;
+  font-weight: 700;
+  font-size: 28px;
+}
+.page main > div .container {
+  padding-top: 36px;
+  padding-bottom: 36px;
+}
+main .main-content {
+  height: 100%;
+  border-radius: 50px 50px 0px 0px;
+  background-color: var(--neutral-color);
+}
+/* dark */
+.page.dark {
+  gap: 20px;
+  padding-right: 20px;
+  color: var(--main-text-dark-color);
+  background-color: var(--main-bg-dark);
+}
+.page.dark aside .logo {
+  .colored {
+    color: var(--main-dark-color);
+  }
+}
+.page.dark aside .content {
+  background-color: var(--neutral-dark-color);
+}
+.page.dark aside .content .active,
+.page.dark aside .content ul li a:not(.active):hover,
+.page.dark aside button {
+  background-color: var(--main-dark-color);
+}
+.page.dark aside .content ul li a:not(.active):hover {
+  background-color: var(--secondaty-color);
+}
+.page.dark main .main-content {
+  background-color: var(--neutral-dark-color);
+}

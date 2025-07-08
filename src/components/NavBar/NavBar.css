@@ -1,0 +1,117 @@
+.search {
+  position: relative;
+  input {
+    padding: 7px;
+  }
+}
+nav .container {
+  /* padding: 20px 32px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .settings,
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  .settings {
+    gap: 20px;
+    button {
+      border: none;
+      background: transparent;
+      position: relative;
+      .icon {
+        font-size: 25px;
+        color: var(--secondary-color);
+      }
+    }
+    button::before {
+      content: "";
+      position: absolute;
+      left: -10px;
+      width: 1px;
+      height: 25px;
+      background-color: var(--secondary-neutral-color);
+      background-color: var(--neutral-color);
+      background-color: #ccc;
+    }
+  }
+  .user-info {
+    gap: 10px;
+    color: var(--main-text-color);
+    img {
+      width: 50px;
+      height: 50%;
+      border-radius: 50%;
+    }
+    p {
+      margin: 0px;
+    }
+    .first {
+      color: var(--placeholder-color);
+    }
+  }
+}
+nav .search .icon {
+  content: "";
+  font-weight: 900;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  color: var(--secondary-neutral-color);
+}
+nav .search input {
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  padding-left: 40px;
+  width: 190px;
+  transition: width 0.3s;
+  color: var(--main-text-color);
+  background-color: transparent;
+  caret-color: var(--secondary-neutral-color);
+}
+nav .search input:focus {
+  width: 210px;
+  outline: none;
+  border-color: var(--placeholder-color);
+}
+nav .search input::placeholder {
+  color: var(--placeholder-color);
+}
+nav .search input:focus::placeholder {
+  opacity: 0;
+}
+/* dark */
+.page.dark {
+  nav .container {
+    .settings {
+      button {
+      }
+      button::before {
+        background-color: var(--neutral-dark-color);
+      }
+    }
+    .user-info {
+      color: var(--main-text-dark-color);
+      .first {
+        color: var(--placeholder-dark-color);
+      }
+    }
+  }
+  nav .search .icon {
+    color: var(--secondary-color);
+  }
+  nav .search input {
+    border: 1px solid var(--neutral-dark-color);
+    color: var(--main-text-dark-color);
+    caret-color: var(--secondary-neutral-dark-color);
+  }
+  nav .search input:focus {
+    border-color: var(--neutral-dark-color);
+  }
+  nav .search input::placeholder {
+    color: var(--placeholder-dark-color);
+  }
+}

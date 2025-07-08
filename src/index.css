@@ -1,0 +1,69 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Nunito Sans", sans-serif;
+}
+:root {
+  --main-trans: 0.5s;
+  --main-color: #ed7864;
+  --secondary-color: #ff9f8f;
+  --neutral-color: #feefea;
+  --secondary-neutral-color: #f8dada;
+  /* --main-text-color: #5d4037;
+  --placeholder-color: #bcaaa4; */
+  --main-text-color: black;
+  --placeholder-color: #888;
+  /* dark */
+  --main-dark-color: #f78c8c;
+  --secondary-dark-color: #ffb6b9;
+  --neutral-dark-color: #2b2b34;
+  --secondary-neutral-dark-color: #393944;
+  --main-text-dark-color: #fdf6f6;
+  --placeholder-dark-color: #a7a3ab;
+  --main-bg-dark: #1e1e24;
+}
+.secondary-btn {
+  width: 190px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  color: white;
+  border: 2px solid white;
+  transition: var(--main-trans);
+}
+.secondary-btn:hover {
+  background-color: white;
+  color: var(--main-color);
+}
+.main-btn {
+  width: 190px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  transition: var(--main-trans);
+  background-color: var(--main-color);
+}
+.main-btn:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+.page .container {
+  padding: 20px 52px;
+}
+/* dark */
+.page.dark {
+  .container {
+    padding: 20px 32px;
+  }
+  .main-btn {
+    background-color: var(--main-dark-color);
+  }
+}

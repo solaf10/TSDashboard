@@ -1,0 +1,10 @@
+.items {
+  height: 100%;
+  .container,
+  .row {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+}

@@ -34,7 +34,7 @@ const AddItem = () => {
   return (
     <div className="control-products content">
       <p>Add Product</p>
-      <ItemForm sendData={sendData} id="" />
+      <ItemForm sendData={sendData} />
     </div>
   );
 };

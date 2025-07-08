@@ -12,7 +12,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
 
 interface Props {
-  id: string | null;
+  id?: string;
   sendData: (e: FormEvent, enteredData: RefObject<AddedProductInfo>) => void;
 }
 
@@ -24,7 +24,7 @@ const ItemForm = ({ id, sendData }: Props) => {
     price: "",
     image_url: "",
   });
-  id !== "" &&
+  id &&
     useEffect(() => {
       axios
         .get(`https://vica.website/api/items/${id}`, {
@@ -50,7 +50,7 @@ const ItemForm = ({ id, sendData }: Props) => {
             onChange={(e) =>
               (data.current = { ...data.current, name: e.target.value })
             }
-            defaultValue={id !== "" ? prevInfo.name : ""}
+            defaultValue={id ? prevInfo.name : ""}
           />
         </div>
         <div className="price">
@@ -62,7 +62,7 @@ const ItemForm = ({ id, sendData }: Props) => {
             onChange={(e) =>
               (data.current = { ...data.current, price: e.target.value })
             }
-            defaultValue={id !== "" ? prevInfo.price : ""}
+            defaultValue={id ? prevInfo.price : ""}
           />
         </div>
         <input className="main-btn" type="submit" value="Save" />

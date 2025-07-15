@@ -67,3 +67,10 @@ body {
     background-color: var(--main-dark-color);
   }
 }
+.disabled {
+  cursor: not-allowed !important;
+  background-color: var(--secondary-neutral-color) !important;
+}
+.disabled:hover {
+  box-shadow: none !important;
+}

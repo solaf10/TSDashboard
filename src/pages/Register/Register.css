@@ -5,10 +5,7 @@
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 15px;
-      input:not(.main-btn) {
-        width: 48%;
-      }
-      label {
+      label:not(.icon-holder) {
         width: 100%;
         padding: 20px;
         display: flex;
@@ -24,6 +21,12 @@
           font-size: 48px;
           color: var(--secondary-color);
         }
+      }
+      .info-inp {
+        width: 48%;
+      }
+      .info-inp.file-inp {
+        width: 100%;
       }
       input[type="file"] {
         display: none;

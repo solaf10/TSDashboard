@@ -9,3 +9,38 @@
   transform: scale(1);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
+.items .cards {
+  margin-right: -20px;
+}
+.items .cards .pagenation-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 24px;
+  button {
+    border: none;
+    background-color: transparent;
+  }
+  button.next {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  button.next.disabled {
+    cursor: not-allowed;
+    background-color: transparent !important;
+    color: #ccc;
+  }
+  button.active {
+    border-bottom: 1px solid;
+  }
+  button.pageNum:not(.active) {
+    /* color: var(--secondary-neutral-color); */
+    color: #888;
+    transition: var(--main-trans);
+  }
+  button.pageNum:not(.active):hover {
+    color: var(--main-text-color);
+  }
+}

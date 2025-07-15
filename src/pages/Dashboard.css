@@ -126,6 +126,18 @@ main .main-content {
   border-radius: 50px 50px 0px 0px;
   background-color: var(--neutral-color);
 }
+@media (max-width: 768px) {
+  .page aside .header {
+    justify-content: space-between;
+  }
+  .page .container {
+    padding: 20px;
+  }
+  .page aside {
+    position: absolute;
+    left: -100%;
+  }
+}
 /* dark */
 .page.dark {
   gap: 20px;

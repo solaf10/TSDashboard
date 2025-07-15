@@ -37,6 +37,7 @@
       color: #5d4037;
     }
     input:not(.main-btn) {
+      width: 100%;
       padding: 15px 20px;
       border-radius: 10px;
       border: none;
@@ -51,6 +52,23 @@
     }
     input:focus {
       outline: none;
+    }
+    .info-inp {
+      position: relative;
+      .icon-holder {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        .icon {
+          color: #bcaaa4;
+          cursor: pointer;
+          transition: var(--main-trans);
+        }
+        .icon:hover {
+          color: #5d4037;
+        }
+      }
     }
     .main-btn {
       width: 100%;

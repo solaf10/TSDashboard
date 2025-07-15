@@ -115,3 +115,53 @@ nav .search input:focus::placeholder {
     color: var(--placeholder-dark-color);
   }
 }
+/* menu */
+/* nav {
+  height: 46px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 32px;
+} */
+nav .menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: none;
+}
+nav .menu .icon-holder {
+}
+nav .menu .icon-holder {
+  cursor: pointer;
+}
+nav .menu .icon {
+  margin-bottom: -2px;
+}
+nav .logo {
+  font-weight: bold;
+  font-size: 16px;
+}
+@media (max-width: 768px) {
+  nav .menu,
+  .page aside .header .close {
+    display: flex;
+  }
+}
+@media (max-width: 500px) {
+  nav .container {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  main .main-content header {
+    justify-content: center;
+    gap: 10px;
+  }
+  nav .menu .icon {
+    font-size: 20px;
+  }
+  nav .container .search {
+    order: 3;
+    margin: 0px auto;
+  }
+}

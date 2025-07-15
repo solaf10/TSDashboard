@@ -19,14 +19,11 @@ const ConfirmPopUp = ({
       <div className="content">
         <p>Are You Sure You Want To {action}?</p>
         <div className="btns">
-          <button className="confirm" onClick={handleAction}>
-            {isLoading ? (
-              <div className="loader-container">
-                <Loader isbtn={true} />
-              </div>
-            ) : (
-              "Yes"
-            )}
+          <button
+            className={isLoading ? "disabled confirm" : "confirm"}
+            onClick={handleAction}
+          >
+            {isLoading ? "Wait..." : "Yes"}
           </button>
           <button className="cancel" onClick={handleCancelation}>
             No

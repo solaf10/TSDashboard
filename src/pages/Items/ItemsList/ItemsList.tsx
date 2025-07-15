@@ -49,6 +49,7 @@ const ItemsList = () => {
     } else {
       setFilteredProducts(products);
     }
+    setCurrentPage(0);
   }, [searchedKey, products]);
 
   const handleOpenPopUp = (id: number) => {
@@ -56,6 +57,7 @@ const ItemsList = () => {
     setIsShow(true);
   };
   const handleDelete = () => {
+    setIsLoading(true);
     axios
       .delete(config.baseUrl + config.items + `/${deletedProductID.current}`, {
         headers: {
@@ -64,25 +66,41 @@ const ItemsList = () => {
       })
       .then((res) => {
         console.log(res.data);
-        setRerender((prev) => !prev);
+        setIsLoading(false);
         setIsShow(false);
+        setRerender((prev) => !prev);
         toast.success("Product deleted successfully!");
       })
       .catch((err) => {
-        toast.error("Failed to delete product!");
         console.log(err);
+        setIsLoading(false);
+        toast.error("Failed to delete product!");
       });
   };
-  const cards = filteredProducts.map((product) => (
-    <Product
-      key={product.id}
-      id={product.id}
-      name={product.name}
-      price={product.price}
-      image={product.image_url}
-      handleOpenPopUp={handleOpenPopUp}
-    />
-  ));
+  // pagenation
+  const NUM_PER_PAGE = 12;
+  // const end = useRef<number>(null);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const pagenationEnabling = () => {
+    const start = currentPage * NUM_PER_PAGE;
+    const end = Math.min(
+      currentPage * NUM_PER_PAGE + NUM_PER_PAGE,
+      filteredProducts.length
+    );
+    return filteredProducts
+      .slice(start, end)
+      .map((product) => (
+        <Product
+          key={product.id}
+          id={product.id}
+          name={product.name}
+          price={product.price}
+          image={product.image_url}
+          handleOpenPopUp={handleOpenPopUp}
+        />
+      ));
+  };
+  const cards = pagenationEnabling();
   return (
     <>
       <header>
@@ -91,8 +109,43 @@ const ItemsList = () => {
           + Add product
         </Link>
       </header>
-      <div className="cards row">
-        {isLoading ? <Loader isbtn={false} /> : cards}
+      <div className="cards">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <div className="row">{cards}</div>
+            <div className="pagenation-btns">
+              {/* <button
+          className="prev"
+          onClick={() => setCurrentPage((prev) => prev - 1)}
+        >
+          Prev &gt;{" "}
+        </button> */}
+              {[...new Array(currentPage + 1)].map((_, i) => (
+                <button
+                  key={i}
+                  className={i == currentPage ? "active pageNum" : "pageNum"}
+                  onClick={() => setCurrentPage(i)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              <button
+                className={
+                  currentPage + 1 >=
+                  Math.ceil(filteredProducts.length / NUM_PER_PAGE)
+                    ? "disabled next"
+                    : "next"
+                }
+                onClick={() => setCurrentPage((prev) => prev + 1)}
+              >
+                <span>Next</span>
+                <span>&gt;</span>
+              </button>
+            </div>
+          </>
+        )}
       </div>
       {isShow && (
         <ConfirmPopUp

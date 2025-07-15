@@ -13,10 +13,11 @@ import axios from "axios";
 
 interface Props {
   id?: string;
+  isLoading: boolean;
   sendData: (e: FormEvent, enteredData: RefObject<AddedProductInfo>) => void;
 }
 
-const ItemForm = ({ id, sendData }: Props) => {
+const ItemForm = ({ id, sendData, isLoading }: Props) => {
   const data = useRef<AddedProductInfo>({ name: "", price: "", image: null });
   const [isImageChanged, setIsImageChanged] = useState<boolean>(false);
   const [prevInfo, setPrevInfo] = useState({
@@ -65,7 +66,11 @@ const ItemForm = ({ id, sendData }: Props) => {
             defaultValue={id ? prevInfo.price : ""}
           />
         </div>
-        <input className="main-btn" type="submit" value="Save" />
+        <input
+          className={isLoading ? "disabled main-btn" : "main-btn"}
+          type="submit"
+          value={isLoading ? "Wait..." : "Save"}
+        />
       </form>
       <div className="product-image">
         <label htmlFor="upload">

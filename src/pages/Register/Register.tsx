@@ -6,6 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "../Auth.css";
 import "./Register.css";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import { MdDriveFileRenameOutline } from "react-icons/md";
+import { LuEyeClosed } from "react-icons/lu";
+import { FaEnvelope, FaEye } from "react-icons/fa";
 
 export interface RegisterInps {
   first_name: string;
@@ -27,46 +30,101 @@ const Register = () => {
     password_confirmation: "",
     profile_image: null,
   });
+  const [isPassShow, setIsPassShow] = useState(false);
+  const [isConfirmShow, setIsConfirmShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const inputs = [
     {
       type: "text",
       title: "first_name",
       placeHolder: "Enter Your FirstName",
+      label: (
+        <label className="icon-holder" htmlFor="first_name">
+          <MdDriveFileRenameOutline className="icon" />
+        </label>
+      ),
     },
     {
       type: "text",
       title: "last_name",
       placeHolder: "Enter Your LastName",
+      label: (
+        <label className="icon-holder" htmlFor="last_name">
+          <MdDriveFileRenameOutline className="icon" />
+        </label>
+      ),
     },
     {
       type: "text",
       title: "user_name",
       placeHolder: "Enter Your FullName",
+      label: (
+        <label className="icon-holder" htmlFor="user_name">
+          <MdDriveFileRenameOutline className="icon" />
+        </label>
+      ),
     },
     {
       type: "email",
       title: "email",
       placeHolder: "Enter Your Email",
+      label: (
+        <label className="icon-holder" htmlFor="email">
+          <FaEnvelope className="icon" />
+        </label>
+      ),
     },
     {
-      type: "password",
+      type: isPassShow ? "text" : "password",
       title: "password",
       placeHolder: "Enter Your Password",
+      label: (
+        <label
+          className="icon-holder"
+          htmlFor="password"
+          onClick={(e) => {
+            e.preventDefault();
+            setIsPassShow((prev) => !prev);
+          }}
+        >
+          {isPassShow ? (
+            <LuEyeClosed className="icon" />
+          ) : (
+            <FaEye className="icon" />
+          )}
+        </label>
+      ),
     },
     {
-      type: "password",
+      type: isConfirmShow ? "text" : "password",
       title: "password_confirmation",
       placeHolder: "Confirm Your Password",
+      label: (
+        <label
+          className="icon-holder"
+          htmlFor="password"
+          onClick={(e) => {
+            e.preventDefault();
+            setIsConfirmShow((prev) => !prev);
+          }}
+        >
+          {isConfirmShow ? (
+            <LuEyeClosed className="icon" />
+          ) : (
+            <FaEye className="icon" />
+          )}
+        </label>
+      ),
     },
     {
       type: "file",
       title: "profile_image",
       placeHolder: "Enter Your image",
-      fileLabel: (
-        <>
+      label: (
+        <label htmlFor="profile_image" className="file-label">
           <IoCloudUploadOutline className="icon" />
           <span>Upload Your Image</span>
-        </>
+        </label>
       ),
     },
   ];
@@ -81,6 +139,7 @@ const Register = () => {
       data.password_confirmation !== "" &&
       data.profile_image !== null
     ) {
+      setIsLoading(true);
       axios
         .post(config.baseUrl + config.register, data, {
           headers: {
@@ -89,11 +148,15 @@ const Register = () => {
         })
         .then((res) => {
           console.log(res.data);
+          setIsLoading(false);
           localStorage.setItem("token", res.data.data.token);
           localStorage.setItem("userInfo", JSON.stringify(res.data.data.user));
           navigate("/dashboard");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setIsLoading(false);
+          console.log(err);
+        });
     }
   }, [data]);
   return (
@@ -110,6 +173,7 @@ const Register = () => {
         btn="Register"
         inputs={inputs}
         setData={setData}
+        isLoading={isLoading}
       />
     </div>
   );

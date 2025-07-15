@@ -7,10 +7,11 @@
     background-color: white;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     .image {
-      width: 225px;
+      width: 100%;
       height: 225px;
       img {
         width: 100%;
+        height: 100%;
       }
     }
     .text {
@@ -32,6 +33,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      /* flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px; */
       .action {
         border: none;
         background-color: transparent;

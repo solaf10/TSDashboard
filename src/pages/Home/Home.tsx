@@ -42,13 +42,22 @@ const Home = () => {
       </div>
     </div>
   ));
+  let avg;
+  const total = products.reduce((sum, product) => sum + +product.price, 0);
+  avg = products.length > 0 ? total / products.length : 0;
+  console.log(avg);
   return (
     <div className="home">
       <div className="container">
         <div className="dashboard-stats">
           <div className="welcome">
             <div className="text">
-              <h2 className="dashboard-title">Hi, {first_name}</h2>
+              <h2
+                className="dashboard-title"
+                style={{ textTransform: "capitalize" }}
+              >
+                Hi, {first_name}
+              </h2>
               <p className="dashboard-desc">
                 Here's a quick overview of your shop's activity.
               </p>
@@ -68,7 +77,7 @@ const Home = () => {
             </div>
             <div className="card">
               <p className="card-title">Average Price</p>
-              <h3 className="card-number">$43</h3>
+              <h3 className="card-number">${avg ? Math.round(avg) : ""}</h3>
             </div>
           </div>
         </div>
@@ -77,7 +86,12 @@ const Home = () => {
             <h3>Newly Added Products</h3>
             <p>Here’s a quick look at the most recently added items.</p>
           </div>
-          <div className="products-list">{cards}</div>
+          <div
+            className="products-list"
+            style={isLoading ? { justifyContent: "center" } : {}}
+          >
+            {isLoading ? <Loader /> : cards}
+          </div>
         </div>
       </div>
     </div>

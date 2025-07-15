@@ -19,9 +19,11 @@ const Root = () => {
   const [isShow, setIsShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(() =>
-    window.innerWidth >= 991 ? true : false
+    window.innerWidth >= 768 ? true : false
   );
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    return localStorage.getItem("isDark") == "true";
+  });
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -104,7 +106,7 @@ const Root = () => {
           </div>
         </aside>
         <main>
-          <NavBar isDark={isDark} setIsDark={setIsDark} />
+          <NavBar isDark={isDark} setIsDark={setIsDark} setIsOpen={setIsOpen} />
           <div className="main-content">
             <Outlet />
           </div>

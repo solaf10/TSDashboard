@@ -1,6 +1,6 @@
 .home {
   .dashboard-stats {
-    padding: 2rem;
+    padding: 2rem 0px;
 
     .welcome {
       margin-top: 40px;
@@ -81,7 +81,7 @@
 /* newly added products */
 .home {
   .recent-products {
-    margin: 1rem 2rem 3rem;
+    margin: 1rem 0px 3rem;
     padding: 2rem;
     background-color: white;
     border-radius: 16px;
@@ -138,6 +138,11 @@
     }
   }
 }
+.home {
+  .products-list .loader-holder {
+    padding: 0px 0px 1rem;
+  }
+}
 /* dark */
 .page.dark {
   .recent-products {
@@ -177,5 +182,14 @@
   }
   .card-number {
     color: var(--main-dark-color);
+  }
+}
+@media (max-width: 991px) {
+  .home {
+    .dashboard-stats {
+      .welcome .text {
+        width: 75%;
+      }
+    }
   }
 }

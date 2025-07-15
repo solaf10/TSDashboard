@@ -6,33 +6,63 @@ import axios from "axios";
 import config from "../../Constants/enviroments";
 import type { LogInInps } from "../../interfaces/interfaces";
 import { Link, useNavigate } from "react-router-dom";
+import { FaEnvelope, FaEye } from "react-icons/fa";
+import { LuEyeClosed } from "react-icons/lu";
 
 const LogIn = () => {
   const [data, setData] = useState<LogInInps>({ email: "", password: "" });
+  const [isShow, setIsShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const inputs = [
     {
       type: "email",
       title: "email",
       placeHolder: "Enter Your Email",
+      label: (
+        <label className="icon-holder" htmlFor="email">
+          <FaEnvelope className="icon" />
+        </label>
+      ),
     },
     {
-      type: "password",
+      type: isShow ? "text" : "password",
       title: "password",
       placeHolder: "Enter Your Password",
+      label: (
+        <label
+          className="icon-holder"
+          htmlFor="password"
+          onClick={(e) => {
+            e.preventDefault();
+            setIsShow((prev) => !prev);
+          }}
+        >
+          {isShow ? (
+            <LuEyeClosed className="icon" />
+          ) : (
+            <FaEye className="icon" />
+          )}
+        </label>
+      ),
     },
   ];
   const navigate = useNavigate();
   useEffect(() => {
     if (data.email !== "" && data.password !== "") {
+      setIsLoading(true);
       axios
         .post(config.baseUrl + config.login, data)
         .then((res) => {
           console.log(res.data);
+          setIsLoading(false);
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("userInfo", JSON.stringify(res.data.user));
           navigate("/dashboard");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setIsLoading(false);
+          console.log(err);
+        });
     }
   }, [data]);
   return (
@@ -49,6 +79,7 @@ const LogIn = () => {
         btn="Login"
         inputs={inputs}
         setData={setData}
+        isLoading={isLoading}
       />
     </div>
   );

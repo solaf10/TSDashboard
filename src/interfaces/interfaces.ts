@@ -11,9 +11,10 @@ export interface FormTypes<T> {
     type: string;
     placeHolder: string;
     title: string;
-    fileLabel?: ReactNode;
+    label: ReactNode;
   }>;
   setData: Dispatch<SetStateAction<T>>;
+  isLoading: boolean;
 }
 export interface AddedProductInfo {
   name: string;

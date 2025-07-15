@@ -1,4 +1,4 @@
-import { type FormEvent, type RefObject } from "react";
+import { useState, type FormEvent, type RefObject } from "react";
 import ItemForm from "../components/ItemForm/ItemForm";
 import type { AddedProductInfo } from "../interfaces/interfaces";
 import axios from "axios";
@@ -8,11 +8,13 @@ import { toast } from "react-toastify";
 
 const AddItem = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   function sendData(
     event: FormEvent,
     enteredData: RefObject<AddedProductInfo>
   ) {
     event.preventDefault();
+    setIsLoading(true);
     axios
       .post(config.baseUrl + config.items, enteredData.current, {
         headers: {
@@ -23,10 +25,12 @@ const AddItem = () => {
       })
       .then((res) => {
         console.log(res.data);
+        setIsLoading(false);
         toast.success("Product added successfully!");
         navigate("/dashboard");
       })
       .catch((err) => {
+        setIsLoading(false);
         toast.error("Failed to add product!");
         console.log(err);
       });
@@ -34,7 +38,7 @@ const AddItem = () => {
   return (
     <div className="control-products content">
       <p>Add Product</p>
-      <ItemForm sendData={sendData} />
+      <ItemForm sendData={sendData} isLoading={isLoading} />
     </div>
   );
 };

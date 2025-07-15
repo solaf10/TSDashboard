@@ -11,12 +11,14 @@ const AddItem = () => {
     price: "",
     image: null,
   });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   function sendData(
     event: FormEvent,
     enteredData: RefObject<AddedProductInfo>
   ) {
     event.preventDefault();
+    setIsLoading(true);
     axios
       .post(config.baseUrl + config.items, enteredData.current, {
         headers: {
@@ -27,14 +29,18 @@ const AddItem = () => {
       })
       .then((res) => {
         console.log(res.data);
+        setIsLoading(false);
         navigate("/dashboard");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      });
   }
   return (
     <div className="control-products content">
       <p>Add Product</p>
-      <ItemForm sendData={sendData} />
+      <ItemForm sendData={sendData} isLoading={isLoading} />
     </div>
   );
 };

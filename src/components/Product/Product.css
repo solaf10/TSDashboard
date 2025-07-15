@@ -1,6 +1,7 @@
 .card-holder {
   padding: 10px;
   .card {
+    height: 376px;
     padding: 20px;
     border: none;
     border-radius: 10px;

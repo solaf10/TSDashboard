@@ -1,5 +1,5 @@
 .auth {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   .intro {
     display: flex;
@@ -74,6 +74,29 @@
       width: 100%;
       font-size: 20px;
       height: 60px;
+    }
+  }
+}
+@media (max-width: 991px) {
+  .auth {
+    flex-wrap: wrap;
+    .intro,
+    form {
+      width: 100%;
+    }
+    .intro {
+      border-radius: 0px 0px 25% 25%;
+      h1 {
+        font-size: 30px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+    form {
+      h2 {
+        font-size: 30px;
+      }
     }
   }
 }

@@ -44,3 +44,25 @@
     color: var(--main-text-color);
   }
 }
+/* dark */
+.page.dark {
+  .items .cards .pagenation-btns {
+    button.next {
+      color: var(--main-text-dark-color);
+    }
+    button.next.disabled {
+      color: var(--placeholder-dark-color);
+    }
+    button.active {
+      color: var(--main-text-dark-color);
+      border-bottom: 1px solid var(--main-text-dark-color);
+    }
+    button.pageNum:not(.active) {
+      transition: var(--main-trans);
+      color: var(--placeholder-dark-color);
+    }
+    button.pageNum:not(.active):hover {
+      color: var(--main-text-dark-color);
+    }
+  }
+}

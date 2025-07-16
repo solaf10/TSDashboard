@@ -34,3 +34,18 @@
     }
   }
 }
+@media (max-width: 991px) {
+  .auth.register {
+    gap: 40px;
+    .intro {
+      min-height: 262px;
+    }
+    form {
+      .holder {
+        .info-inp {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

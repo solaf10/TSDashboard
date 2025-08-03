@@ -1,8 +1,8 @@
 import axios from "axios";
 import ItemForm from "../components/ItemForm/ItemForm";
 import config from "../Constants/enviroments";
-import { useState, type FormEvent, type RefObject } from "react";
-import type { AddedProductInfo } from "../interfaces/interfaces";
+import { useEffect, useState, type FormEvent, type RefObject } from "react";
+import type { AddedProductInfo, PrevInfo } from "../interfaces/interfaces";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -40,10 +40,27 @@ const EditItem = () => {
         toast.error("Failed to edit product!");
       });
   }
+  // fetch old data
+  const [prevInfo, setPrevInfo] = useState<PrevInfo>({
+    name: "",
+    price: "",
+    image_url: "",
+  });
+  useEffect(() => {
+    axios
+      .get(`https://vica.website/api/items/${id}`, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setPrevInfo(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <div className="control-products content">
       <p>Edit Product</p>
-      <ItemForm sendData={sendData} id={id} isLoading={isLoading} />
+      <ItemForm sendData={sendData} oldData={prevInfo} isLoading={isLoading} />
     </div>
   );
 };

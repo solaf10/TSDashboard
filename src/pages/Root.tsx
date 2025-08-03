@@ -1,18 +1,14 @@
 import "./Dashboard.css";
 import axios from "axios";
 import config from "../Constants/enviroments";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar/NavBar";
 import SearchContext from "../contexts/SearchContext";
-import { IoClose, IoHome } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { AiOutlineProduct } from "react-icons/ai";
-import { GrFavorite } from "react-icons/gr";
-import { TbListCheck } from "react-icons/tb";
-import { FaPowerOff } from "react-icons/fa";
 import ConfirmPopUp from "../components/PopUp/ConfirmPopUp";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const Root = () => {
   const navigate = useNavigate();
@@ -49,10 +45,14 @@ const Root = () => {
         setIsLoading(false);
         localStorage.removeItem("token");
         localStorage.removeItem("userInfo");
-        navigate("/");
+        toast.success("you logged out successfully!");
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       })
       .catch((err) => {
         setIsLoading(false);
+        toast.error("Failed to logout!");
         console.log(err);
       });
   }
@@ -60,51 +60,7 @@ const Root = () => {
     <SearchContext>
       <div className={isDark ? "page dark" : "page"}>
         <ToastContainer position="top-right" autoClose={3000} />
-        <aside style={{ left: isOpen ? "0px" : "-100%" }}>
-          <div className="content">
-            <div className="holder">
-              <div className="header">
-                <h1 className="logo" onClick={() => navigate("/products")}>
-                  <span>Dash</span>
-                  <span className="colored">Stack</span>
-                </h1>
-                <div className="close-holder">
-                  <IoClose className="close" onClick={() => setIsOpen(false)} />
-                </div>
-              </div>
-              <ul>
-                <li>
-                  <NavLink to="/dashboard" end>
-                    <IoHome />
-                    <p>Dashboard</p>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/items">
-                    <AiOutlineProduct />
-                    <p>Products</p>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/favorites">
-                    <GrFavorite />
-                    <p>Favorites</p>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/dashboard/orders">
-                    <TbListCheck />
-                    <p>Order Lists</p>
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
-            <button onClick={() => setIsShow(true)}>
-              <FaPowerOff />
-              <span>Logout</span>
-            </button>
-          </div>
-        </aside>
+        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsShow={setIsShow} />
         <main>
           <NavBar isDark={isDark} setIsDark={setIsDark} setIsOpen={setIsOpen} />
           <div className="main-content">

@@ -44,6 +44,7 @@ const AuthForm = <T extends object>({
         className={isLoading ? "disabled main-btn" : "main-btn"}
         type="submit"
         value={isLoading ? "Wait..." : btn}
+        disabled={isLoading}
       />
     </form>
   );

@@ -164,3 +164,9 @@ main .main-content {
 .page.dark main .main-content {
   background-color: var(--neutral-dark-color);
 }
+@media (max-width: 768px) {
+  .page.dark {
+    gap: 0px;
+    padding-right: 0px;
+  }
+}

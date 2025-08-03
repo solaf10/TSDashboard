@@ -70,6 +70,12 @@
     .card {
       color: var(--main-text-dark-color);
       background-color: var(--main-bg-dark);
+      .actions {
+        .edit {
+          color: var(--main-text-dark-color);
+          background-color: var(--secondary-neutral-dark-color);
+        }
+      }
     }
   }
 }

@@ -1,5 +1,4 @@
 import "./ConfirmPopUp.css";
-import Loader from "../Loader/Loader";
 
 interface Props {
   action: string;
@@ -22,6 +21,7 @@ const ConfirmPopUp = ({
           <button
             className={isLoading ? "disabled confirm" : "confirm"}
             onClick={handleAction}
+            disabled={isLoading}
           >
             {isLoading ? "Wait..." : "Yes"}
           </button>

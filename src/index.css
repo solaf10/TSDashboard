@@ -74,3 +74,10 @@ body {
 .disabled:hover {
   box-shadow: none !important;
 }
+@media (max-width: 768px) {
+  .page.dark {
+    .container {
+      padding: 20px;
+    }
+  }
+}

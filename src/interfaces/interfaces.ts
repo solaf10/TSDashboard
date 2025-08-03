@@ -29,3 +29,8 @@ export interface ProductsType {
   image_url: string;
   created_at?: string;
 }
+export interface PrevInfo {
+  name: "";
+  price: "";
+  image_url: "";
+}

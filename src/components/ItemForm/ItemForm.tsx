@@ -5,40 +5,24 @@ import {
   type FormEvent,
   type RefObject,
 } from "react";
-import type { AddedProductInfo } from "../../interfaces/interfaces";
+import type { AddedProductInfo, PrevInfo } from "../../interfaces/interfaces";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import "./ItemForm.css";
 import { FaCheckCircle } from "react-icons/fa";
-import axios from "axios";
 
 interface Props {
-  id?: string;
   isLoading: boolean;
   sendData: (e: FormEvent, enteredData: RefObject<AddedProductInfo>) => void;
+  oldData?: PrevInfo;
 }
 
-const ItemForm = ({ id, sendData, isLoading }: Props) => {
+const ItemForm = ({ oldData, sendData, isLoading }: Props) => {
   const data = useRef<AddedProductInfo>({ name: "", price: "", image: null });
   const [isImageChanged, setIsImageChanged] = useState<boolean>(false);
-  const [prevInfo, setPrevInfo] = useState({
-    name: "",
-    price: "",
-    image_url: "",
-  });
-  id &&
+  oldData &&
     useEffect(() => {
-      axios
-        .get(`https://vica.website/api/items/${id}`, {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        })
-        .then((res) => {
-          console.log(res.data);
-          setPrevInfo(res.data);
-          const { name, price } = res.data;
-          data.current = { image: null, name, price };
-        })
-        .catch((err) => console.log(err));
-    }, [id]);
+      data.current = { ...oldData, image: null };
+    }, [oldData]);
   return (
     <div className="holder">
       <form onSubmit={(event) => sendData(event, data)}>
@@ -51,7 +35,7 @@ const ItemForm = ({ id, sendData, isLoading }: Props) => {
             onChange={(e) =>
               (data.current = { ...data.current, name: e.target.value })
             }
-            defaultValue={id ? prevInfo.name : ""}
+            defaultValue={oldData?.name}
           />
         </div>
         <div className="price">
@@ -63,21 +47,22 @@ const ItemForm = ({ id, sendData, isLoading }: Props) => {
             onChange={(e) =>
               (data.current = { ...data.current, price: e.target.value })
             }
-            defaultValue={id ? prevInfo.price : ""}
+            defaultValue={oldData?.price}
           />
         </div>
         <input
           className={isLoading ? "disabled main-btn" : "main-btn"}
           type="submit"
           value={isLoading ? "Wait..." : "Save"}
+          disabled={isLoading}
         />
       </form>
       <div className="product-image">
         <label htmlFor="upload">
           {isImageChanged ? (
             <FaCheckCircle className="icon" style={{ fontSize: "64px" }} />
-          ) : prevInfo.image_url !== "" ? (
-            <img src={prevInfo.image_url} alt={prevInfo.name} />
+          ) : oldData?.image_url ? (
+            <img src={oldData?.image_url} alt={oldData?.name} />
           ) : (
             <IoCloudUploadOutline className="icon" />
           )}

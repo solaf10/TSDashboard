@@ -9,6 +9,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import { LuEyeClosed } from "react-icons/lu";
 import { FaEnvelope, FaEye } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export interface RegisterInps {
   first_name: string;
@@ -151,10 +152,12 @@ const Register = () => {
           setIsLoading(false);
           localStorage.setItem("token", res.data.data.token);
           localStorage.setItem("userInfo", JSON.stringify(res.data.data.user));
+          toast.success("you created an account successfully!");
           navigate("/dashboard");
         })
         .catch((err) => {
           setIsLoading(false);
+          toast.error("Failed to create account!");
           console.log(err);
         });
     }

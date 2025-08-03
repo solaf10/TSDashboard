@@ -8,6 +8,7 @@ import type { LogInInps } from "../../interfaces/interfaces";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaEye } from "react-icons/fa";
 import { LuEyeClosed } from "react-icons/lu";
+import { toast } from "react-toastify";
 
 const LogIn = () => {
   const [data, setData] = useState<LogInInps>({ email: "", password: "" });
@@ -57,10 +58,12 @@ const LogIn = () => {
           setIsLoading(false);
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("userInfo", JSON.stringify(res.data.user));
+          toast.success("you logged in successfully!");
           navigate("/dashboard");
         })
         .catch((err) => {
           setIsLoading(false);
+          toast.error("Failed to login!");
           console.log(err);
         });
     }

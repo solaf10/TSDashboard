@@ -139,6 +139,10 @@ const ItemsList = () => {
                     : "next"
                 }
                 onClick={() => setCurrentPage((prev) => prev + 1)}
+                disabled={
+                  currentPage + 1 >=
+                  Math.ceil(filteredProducts.length / NUM_PER_PAGE)
+                }
               >
                 <span>Next</span>
                 <span>&gt;</span>

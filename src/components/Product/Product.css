@@ -42,6 +42,10 @@
         background-color: transparent;
         transition: var(--main-trans);
       }
+      button.action.edit.disabled {
+        color: white;
+        background-color: #f0e1e1 !important;
+      }
       .action.edit:hover {
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
       }

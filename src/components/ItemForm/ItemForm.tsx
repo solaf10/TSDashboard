@@ -2,13 +2,14 @@ import {
   useEffect,
   useRef,
   useState,
+  type ChangeEvent,
   type FormEvent,
   type RefObject,
 } from "react";
 import type { AddedProductInfo, PrevInfo } from "../../interfaces/interfaces";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import "./ItemForm.css";
-import { FaCheckCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   isLoading: boolean;
@@ -17,15 +18,33 @@ interface Props {
 }
 
 const ItemForm = ({ oldData, sendData, isLoading }: Props) => {
+  const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState<string>("");
+  const [isChanged, setIsChanged] = useState<boolean>(false);
   const data = useRef<AddedProductInfo>({ name: "", price: "", image: null });
-  const [isImageChanged, setIsImageChanged] = useState<boolean>(false);
   oldData &&
     useEffect(() => {
       data.current = { ...oldData, image: null };
     }, [oldData]);
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    inputType: string
+  ) => {
+    data.current = { ...data.current, [inputType]: e.target.value };
+    setIsChanged(true);
+  };
+  const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
+    data.current = { ...data.current, image: e?.target?.files?.[0] };
+    setSelectedImage(URL.createObjectURL(e?.target?.files?.[0]));
+    setIsChanged(true);
+  };
   return (
     <div className="holder">
-      <form onSubmit={(event) => sendData(event, data)}>
+      <form
+        onSubmit={(event) => {
+          !isChanged ? navigate("/dashboard/items") : sendData(event, data);
+        }}
+      >
         <div className="name">
           <label htmlFor="product-name">Product Name:</label>
           <input
@@ -36,6 +55,7 @@ const ItemForm = ({ oldData, sendData, isLoading }: Props) => {
               (data.current = { ...data.current, name: e.target.value })
             }
             defaultValue={oldData?.name}
+            required
           />
         </div>
         <div className="price">
@@ -44,10 +64,9 @@ const ItemForm = ({ oldData, sendData, isLoading }: Props) => {
             type="text"
             id="price"
             placeholder="Enter Product Price"
-            onChange={(e) =>
-              (data.current = { ...data.current, price: e.target.value })
-            }
+            onChange={(e) => handleChange(e, "price")}
             defaultValue={oldData?.price}
+            required
           />
         </div>
         <input
@@ -59,23 +78,24 @@ const ItemForm = ({ oldData, sendData, isLoading }: Props) => {
       </form>
       <div className="product-image">
         <label htmlFor="upload">
-          {isImageChanged ? (
-            <FaCheckCircle className="icon" style={{ fontSize: "64px" }} />
+          {selectedImage != "" ? (
+            // <FaCheckCircle className="icon" style={{ fontSize: "64px" }} />
+            <img src={selectedImage} alt={data.current.name} />
           ) : oldData?.image_url ? (
             <img src={oldData?.image_url} alt={oldData?.name} />
           ) : (
             <IoCloudUploadOutline className="icon" />
           )}
-          <span>{isImageChanged ? "Image Uploaded" : "Upload Image"}</span>
+          <span>{selectedImage != "" ? "Image Uploaded" : "Upload Image"}</span>
         </label>
         <input
           className="upload-input"
           id="upload"
           type="file"
           onChange={(e) => {
-            setIsImageChanged(true);
-            data.current = { ...data.current, image: e?.target?.files?.[0] };
+            handleImage(e);
           }}
+          required={oldData ? false : true}
         />
       </div>
     </div>

@@ -1,13 +1,14 @@
 import axios from "axios";
 import ItemForm from "../components/ItemForm/ItemForm";
 import config from "../Constants/enviroments";
-import { useEffect, useState, type FormEvent, type RefObject } from "react";
+import { useState, type FormEvent, type RefObject } from "react";
 import type { AddedProductInfo, PrevInfo } from "../interfaces/interfaces";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EditItem = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const prevInfo = useLoaderData<PrevInfo>();
   const navigate = useNavigate();
   const id = useParams().id;
   function sendData(
@@ -41,12 +42,12 @@ const EditItem = () => {
       });
   }
   // fetch old data
-  const [prevInfo, setPrevInfo] = useState<PrevInfo>({
+  /* const [prevInfo, setPrevInfo] = useState<PrevInfo>({
     name: "",
     price: "",
     image_url: "",
-  });
-  useEffect(() => {
+  }); */
+  /* useEffect(() => {
     axios
       .get(`https://vica.website/api/items/${id}`, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
@@ -56,7 +57,7 @@ const EditItem = () => {
         setPrevInfo(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, []); */
   return (
     <div className="control-products content">
       <p>Edit Product</p>

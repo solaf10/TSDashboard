@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import "./Product.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useState } from "react";
 
 interface Props {
   id: number;
@@ -11,7 +12,12 @@ interface Props {
 }
 
 const Product = ({ id, name, price, image, handleOpenPopUp }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const handleNavigate = () => {
+    setIsLoading(true);
+    navigate(`/dashboard/items/edit/${id}`);
+  };
   return (
     <div className="card-holder col-lg-3">
       <div className="card">
@@ -24,8 +30,9 @@ const Product = ({ id, name, price, image, handleOpenPopUp }: Props) => {
         </div>
         <div className="actions">
           <button
-            className="action edit"
-            onClick={() => navigate(`/dashboard/items/edit/${id}`)}
+            className={isLoading ? "disabled action edit" : "action edit"}
+            onClick={handleNavigate}
+            disabled={isLoading}
           >
             Edit Product
           </button>
